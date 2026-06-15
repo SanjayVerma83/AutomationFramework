@@ -1,8 +1,9 @@
 target/
 test-output/
-Reports/
-Screenshots/
-logs/
+
+/Reports/
+/Screenshots/
+/logs/
 
 *.log
 *.class
