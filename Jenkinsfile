@@ -4,14 +4,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-
-            steps {
-
-                git 'https://github.com/SanjayVerma83/AutomationFramework.git'
-            }
-        }
-
         stage('Build & Test') {
 
             steps {
