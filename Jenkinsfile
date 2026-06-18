@@ -1,40 +1,80 @@
 pipeline {
 
-    agent any
+```
+agent any
 
-    tools {
-        maven 'Maven-3.9'
-    }
+tools {
+    jdk 'JDK21'
+    maven 'Maven-3.9'
+}
 
-    stages {
+stages {
 
-        stage('Build & Test') {
+    stage('Checkout Code') {
 
-            steps {
+        steps {
 
-                bat 'mvn clean test'
-            }
+            git branch: 'main',
+                url: 'https://github.com/SanjayVerma83/AutomationFramework.git'
         }
     }
 
-    post {
+    stage('Build & Test') {
 
-        success {
+        steps {
 
-            emailext(
-                subject: 'Automation Framework Build SUCCESS',
-                body: 'All test cases executed successfully.',
-                to: 'sanjay.july@gmail.com'
-            )
-        }
-
-        failure {
-
-            emailext(
-                subject: 'Automation Framework Build FAILED',
-                body: 'Please check Jenkins console logs.',
-                to: 'sanjay.july@gmail.com'
-            )
+            bat 'mvn clean test'
         }
     }
+}
+
+post {
+
+    always {
+
+        junit 'target/surefire-reports/*.xml'
+
+        publishHTML([
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'Reports',
+            reportFiles: 'AutomationReport.html',
+            reportName: 'Automation Execution Report'
+        ])
+    }
+
+    success {
+
+        emailext(
+            subject: 'Automation Framework Build SUCCESS',
+            body: '''
+```
+
+Build Status : SUCCESS
+
+All test cases executed successfully.
+
+Please check Jenkins for detailed reports.
+''',
+to: '[sanjay.july@gmail.com](mailto:sanjay.july@gmail.com)'
+)
+}
+
+```
+    failure {
+
+        emailext(
+            subject: 'Automation Framework Build FAILED',
+            body: '''
+```
+
+Build Status : FAILED
+
+Please check Jenkins console logs and reports.
+''',
+to: '[sanjay.july@gmail.com](mailto:sanjay.july@gmail.com)'
+)
+}
+}
 }
