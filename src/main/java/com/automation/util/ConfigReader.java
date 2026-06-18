@@ -1,8 +1,7 @@
 package com.automation.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
+import java.io.InputStream;
 
 public class ConfigReader {
 
@@ -14,13 +13,15 @@ public class ConfigReader {
 
 		try {
 
-			FileInputStream fis =
-					new FileInputStream(
-					"src/main/resources/config.properties");
+			InputStream fis =
+					getClass()
+					.getClassLoader()
+					.getResourceAsStream(
+							"config.properties");
 
 			prop.load(fis);
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}

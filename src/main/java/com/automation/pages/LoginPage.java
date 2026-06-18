@@ -1,23 +1,24 @@
 package com.automation.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.automation.reports.ExtentReportManager;
+import com.automation.util.WaitUtil;
+
 public class LoginPage {
 
 	WebDriver driver;
 
-	// Constructor
 	public LoginPage(WebDriver driver) {
 
 		this.driver = driver;
 
 		PageFactory.initElements(driver, this);
 	}
-
-	// Locators
 
 	@FindBy(xpath = "//input[@data-qa='login-email']")
 	private WebElement emailTextBox;
@@ -34,26 +35,61 @@ public class LoginPage {
 	@FindBy(xpath = "//p[contains(text(),'Your email or password is incorrect!')]")
 	private WebElement loginErrorMessage;
 
-	// Actions
+	public boolean isLoginPageDisplayed() {
+
+		return emailTextBox.isDisplayed();
+	}
 
 	public void enterEmail(String email) {
 
 		emailTextBox.sendKeys(email);
+
+		ExtentReportManager
+				.getTest()
+				.info("Entered Email");
 	}
 
 	public void enterPassword(String password) {
 
 		passwordTextBox.sendKeys(password);
+
+		ExtentReportManager
+				.getTest()
+				.info("Entered Password");
 	}
 
 	public void clickLoginButton() {
 
-		loginButton.click();
+		try {
+
+			WaitUtil.waitForElementToBeClickable(
+					driver,
+					loginButton);
+
+			loginButton.click();
+
+			ExtentReportManager
+					.getTest()
+					.info("Clicked Login Button");
+
+		} catch (Exception e) {
+
+			JavascriptExecutor js =
+					(JavascriptExecutor) driver;
+
+			js.executeScript(
+					"arguments[0].click();",
+					loginButton);
+
+			ExtentReportManager
+					.getTest()
+					.info("Clicked Login Button using JavaScriptExecutor");
+		}
 	}
 
-	// Reusable Method
-
-	public void login(String email, String password) {
+	public void login(
+			String email,
+			String password) {
 
 		enterEmail(email);
 

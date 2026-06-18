@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.automation.factory.DriverFactory;
 import com.automation.util.ConfigReader;
+import com.automation.util.PopupUtil;
 
 public class TestBase {
 
@@ -19,15 +20,15 @@ public class TestBase {
 		ConfigReader config = new ConfigReader();
 
 		driver.get(config.getUrl());
+		PopupUtil.closePopup(driver);
 	}
 
 	@AfterMethod
 	public void tearDown() {
 
-		if (driver != null) {
-			driver.quit();
-		}
+		DriverFactory.quitDriver();
 	}
+	
 
 	public WebDriver getDriver() {
 

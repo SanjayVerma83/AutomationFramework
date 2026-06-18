@@ -34,4 +34,16 @@ public class WaitUtil {
 		wait.until(
 				ExpectedConditions.elementToBeClickable(element));
 	}
+	public static void waitForUrlContains(
+	        WebDriver driver,
+	        String value) {
+
+	    WebDriverWait wait =
+	            new WebDriverWait(
+	                    driver,
+	                    Duration.ofSeconds(10));
+
+	    wait.until(
+	            ExpectedConditions.urlContains(value));
+	}
 }

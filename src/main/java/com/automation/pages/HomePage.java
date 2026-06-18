@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.automation.reports.ExtentReportManager;
 import com.automation.util.WaitUtil;
 
 public class HomePage {
@@ -12,7 +13,9 @@ public class HomePage {
 	WebDriver driver;
 
 	public HomePage(WebDriver driver) {
+
 		this.driver = driver;
+
 		PageFactory.initElements(driver, this);
 	}
 
@@ -23,17 +26,28 @@ public class HomePage {
 	private WebElement logoutLink;
 
 	public void clickSignupLogin() {
+
 		WaitUtil.waitForElementToBeClickable(
 				driver,
 				signupLogin);
+
 		signupLogin.click();
+
+		ExtentReportManager
+				.getTest()
+				.info("Clicked Signup/Login link");
 	}
 
 	public void clickLogout() {
+
 		WaitUtil.waitForElementToBeClickable(
 				driver,
 				logoutLink);
-		logoutLink.click();
-	}
 
+		logoutLink.click();
+
+		ExtentReportManager
+				.getTest()
+				.info("Clicked Logout Link");
+	}
 }

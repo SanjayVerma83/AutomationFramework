@@ -1,5 +1,5 @@
 package com.automation.reports;
-
+import com.automation.util.ConfigReader;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
@@ -19,10 +19,14 @@ public class ExtentManager {
 
             extent = new ExtentReports();
             extent.attachReporter(sparkReporter);
-
+            ConfigReader config = new ConfigReader();
             extent.setSystemInfo("Tester", "Sanjay Verma");
             extent.setSystemInfo("Environment", "QA");
-            extent.setSystemInfo("Browser", "Chrome");
+            
+
+            extent.setSystemInfo(
+            		"Browser",
+            		config.getBrowser());
         }
 
         return extent;

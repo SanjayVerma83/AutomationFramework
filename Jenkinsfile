@@ -24,7 +24,7 @@ pipeline {
             emailext(
                 subject: 'Automation Framework Build SUCCESS',
                 body: 'All test cases executed successfully.',
-                to: 'skkverma83@gmail.com'
+                to: 'sanjay.july@gmail.com'
             )
         }
 
@@ -33,7 +33,7 @@ pipeline {
             emailext(
                 subject: 'Automation Framework Build FAILED',
                 body: 'Please check Jenkins console logs.',
-                to: 'skkverma83@gmail.com'
+                to: 'sanjay.july@gmail.com'
             )
         }
     }
