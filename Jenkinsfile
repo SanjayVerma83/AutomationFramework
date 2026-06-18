@@ -1,6 +1,5 @@
 pipeline {
 
-```
 agent any
 
 tools {
@@ -48,33 +47,19 @@ post {
 
         emailext(
             subject: 'Automation Framework Build SUCCESS',
-            body: '''
-```
+            body: 'All test cases executed successfully.',
+            to: 'sanjay.july@gmail.com'
+        )
+    }
 
-Build Status : SUCCESS
-
-All test cases executed successfully.
-
-Please check Jenkins for detailed reports.
-''',
-to: '[sanjay.july@gmail.com](mailto:sanjay.july@gmail.com)'
-)
-}
-
-```
     failure {
 
         emailext(
             subject: 'Automation Framework Build FAILED',
-            body: '''
-```
-
-Build Status : FAILED
-
-Please check Jenkins console logs and reports.
-''',
-to: '[sanjay.july@gmail.com](mailto:sanjay.july@gmail.com)'
-)
+            body: 'Please check Jenkins console logs.',
+            to: 'sanjay.july@gmail.com'
+        )
+    }
 }
-}
+
 }
