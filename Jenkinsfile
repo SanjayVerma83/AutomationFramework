@@ -1,5 +1,6 @@
 pipeline {
 
+```
 agent any
 
 tools {
@@ -31,8 +32,17 @@ post {
 
     always {
 
+        // TestNG Results
         junit 'target/surefire-reports/*.xml'
 
+        // Allure Report
+        allure(
+            includeProperties: false,
+            jdk: '',
+            results: [[path: 'allure-results']]
+        )
+
+        // Extent Report
         publishHTML([
             allowMissing: false,
             alwaysLinkToLastBuild: true,
@@ -61,5 +71,6 @@ post {
         )
     }
 }
+```
 
 }
