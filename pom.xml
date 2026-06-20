@@ -90,6 +90,12 @@
 			<version>2.24.3</version>
 		</dependency>
 
+		<!-- Allure TestNG -->
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-testng</artifactId>
+			<version>2.29.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -108,26 +114,33 @@
 			</plugin>
 
 			<!-- Surefire Plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.3</version>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.5.3</version>
 
-				<configuration>
+    <configuration>
 
-					<suiteXmlFiles>
-						<suiteXmlFile>
-							src/test/resources/testng.xml
-						</suiteXmlFile>
-					</suiteXmlFiles>
+        <suiteXmlFiles>
+            <suiteXmlFile>
+                src/test/resources/testng.xml
+            </suiteXmlFile>
+        </suiteXmlFiles>
 
-					<systemPropertyVariables>
-						<org.testng.level>ERROR</org.testng.level>
-					</systemPropertyVariables>
+        <systemPropertyVariables>
+            <org.testng.level>ERROR</org.testng.level>
+        </systemPropertyVariables>
 
-				</configuration>
+        <properties>
+            <property>
+                <name>listener</name>
+                <value>io.qameta.allure.testng.AllureTestNg</value>
+            </property>
+        </properties>
 
-			</plugin>
+    </configuration>
+
+</plugin>
 
 		</plugins>
 	</build>
