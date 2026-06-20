@@ -38,18 +38,24 @@ A robust Selenium Test Automation Framework built using Java, TestNG, Maven, and
 src/main/java
 
 * Pages
+* Factory
 * Utilities
 * Base
+* Listeners
+* Reports
+
+src/main/resources
+
+* log4j
+* config files
 
 src/test/java
 
 * Test Cases
-* Listeners
 
 src/test/resources
 
 * testng.xml
-* Config Files
 * Test Data
 
 ## Reports
