@@ -11,18 +11,14 @@ tools {
 stages {
 
     stage('Checkout Code') {
-
         steps {
-
             git branch: 'main',
                 url: 'https://github.com/SanjayVerma83/AutomationFramework.git'
         }
     }
 
     stage('Build & Test') {
-
         steps {
-
             bat 'mvn clean test'
         }
     }
@@ -32,19 +28,15 @@ post {
 
     always {
 
-        // TestNG Results
+        // Publish TestNG Results
         junit 'target/surefire-reports/*.xml'
 
-        // Allure Report
-        allure(
-            includeProperties: false,
-            jdk: '',
-            results: [[path: 'allure-results']]
-        )
+        // Publish Allure Report
+        allure results: [[path: 'allure-results']]
 
-        // Extent Report
+        // Publish Extent Report
         publishHTML([
-            allowMissing: false,
+            allowMissing: true,
             alwaysLinkToLastBuild: true,
             keepAll: true,
             reportDir: 'Reports',
@@ -54,7 +46,6 @@ post {
     }
 
     success {
-
         emailext(
             subject: 'Automation Framework Build SUCCESS',
             body: 'All test cases executed successfully.',
@@ -63,7 +54,6 @@ post {
     }
 
     failure {
-
         emailext(
             subject: 'Automation Framework Build FAILED',
             body: 'Please check Jenkins console logs.',
