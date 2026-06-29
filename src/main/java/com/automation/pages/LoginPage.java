@@ -117,6 +117,15 @@ public class LoginPage {
 
 	public boolean isErrorMessageDisplayed() {
 
-		return loginErrorMessage.isDisplayed();
+	    try {
+
+	        WaitUtil.waitForElementToBeVisible(driver, loginErrorMessage);
+
+	        return loginErrorMessage.isDisplayed();
+
+	    } catch (Exception e) {
+
+	        return false;
+	    }
 	}
 }
