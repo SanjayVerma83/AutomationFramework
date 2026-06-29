@@ -29,35 +29,35 @@ public class LogoutTest extends TestBase {
 		}
 
 		HomePage home =
-				new HomePage(driver);
+		        new HomePage(driver);
 
 		home.clickSignupLogin();
 
 		LoginPage login =
-				new LoginPage(driver);
+		        new LoginPage(driver);
 
 		login.login(
-				email,
-				password);
+		        email,
+		        password);
 
-		// Recreate HomePage after login
-		home =
-				new HomePage(driver);
+		// Verify login completed successfully
+		Assert.assertTrue(
+		        login.isLogoutDisplayed(),
+		        "Login Failed. Logout link not displayed.");
+
+		// Close popup if it appears
+		PopupUtil.closePopup(driver);
+
+		// Recreate HomePage after successful login
+		home = new HomePage(driver);
 
 		home.clickLogout();
 
-		// Close advertisement popup if displayed
-		PopupUtil.closePopup(driver);
-
 		// Verify Login Page displayed after logout
-		login =
-				new LoginPage(driver);
-
 		Assert.assertTrue(
-				login.isLoginPageDisplayed(),
-				"Logout Failed");
+		        login.isLoginPageDisplayed(),
+		        "Logout Failed");
 
-		System.out.println(
-				"Logout successful");
+		System.out.println("Logout successful");
 	}
 }

@@ -40,14 +40,27 @@ public class HomePage {
 
 	public void clickLogout() {
 
-		WaitUtil.waitForElementToBeClickable(
-				driver,
-				logoutLink);
+	    try {
 
-		logoutLink.click();
+	        WaitUtil.waitForElementToBeClickable(
+	                driver,
+	                logoutLink);
 
-		ExtentReportManager
-				.getTest()
-				.info("Clicked Logout Link");
+	        logoutLink.click();
+
+	    } catch (Exception e) {
+
+	        PopupUtil.closePopup(driver);
+
+	        WaitUtil.waitForElementToBeClickable(
+	                driver,
+	                logoutLink);
+
+	        logoutLink.click();
+	    }
+
+	    ExtentReportManager
+	            .getTest()
+	            .info("Clicked Logout");
 	}
 }

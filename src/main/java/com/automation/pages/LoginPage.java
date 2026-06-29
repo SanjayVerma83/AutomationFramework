@@ -100,18 +100,18 @@ public class LoginPage {
 
 	public boolean isLogoutDisplayed() {
 
-		try {
+	    try {
 
-			WaitUtil.waitForElementToBeVisible(
-					driver,
-					logoutLink);
+	        WaitUtil.waitForElementToBeVisible(
+	                driver,
+	                logoutLink);
 
-			return logoutLink.isDisplayed();
+	        return logoutLink.isDisplayed();
 
-		} catch (Exception e) {
+	    } catch (Exception e) {
 
-			return false;
-		}
+	        return false;
+	    }
 	}
 	
 
